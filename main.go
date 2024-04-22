@@ -4,20 +4,22 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
+	"os"
 	"quiz3/controllers"
 	"quiz3/database"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	password = "postgres"
-	dbname   = "books"
-)
+// const (
+// 	host     = "localhost"
+// 	port     = 5432
+// 	user     = "postgres"
+// 	password = "postgres"
+// 	dbname   = "books"
+// )
 
 var (
 	DB  *sql.DB
@@ -41,15 +43,15 @@ func Auth(c *gin.Context) {
 }
 
 func main() {
-	// err = godotenv.Load("config/.env")
-	// if err != nil {
-	// 	fmt.Println("failed load file environment")
-	// } else {
-	// 	fmt.Println("success read file environment")
-	// }
+	err = godotenv.Load("config/.env")
+	if err != nil {
+		fmt.Println("failed load file environment")
+	} else {
+		fmt.Println("success read file environment")
+	}
 
-	// psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_NAME"))
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+	// psqlInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbname)
+	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_NAME"))
 
 	DB, err = sql.Open("postgres", psqlInfo)
 	err = DB.Ping()
@@ -92,5 +94,6 @@ func main() {
 	router.PUT("/books/:id", Auth, controllers.UpdateBook)
 	router.DELETE("/books/:id", Auth, controllers.DeleteBook)
 
-	router.Run("localhost:8080")
+	// router.Run("localhost:8080")
+	router.Run(":" + os.Getenv("PORT"))
 }
