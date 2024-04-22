@@ -81,6 +81,12 @@ func main() {
 		}
 	})
 
+	router.GET("/categories", controllers.GetAllCategories)
+	router.POST("/categories", Auth, controllers.InsertCategories)
+	router.PUT("/categories/:id", Auth, controllers.UpdateCategories)
+	router.DELETE("/categories/:id", Auth, controllers.DeleteCategories)
+	router.GET("/categories/:id/books", controllers.ShowCategoriesBook)
+
 	router.GET("/books", controllers.GetAllBook)
 	router.POST("/books", Auth, controllers.InsertBook)
 	router.PUT("/books/:id", Auth, controllers.UpdateBook)
