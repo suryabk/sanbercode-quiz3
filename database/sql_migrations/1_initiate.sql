@@ -1,9 +1,10 @@
 -- +migrate Up
 -- +migrate StatementBegin
 CREATE TABLE books (
-    id BIGINT PRIMARY KEY NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
     title VARCHAR(255) NOT NULL,
     description TEXT,
+    image_url VARCHAR(512),
     release_year INT,
     price VARCHAR(50),
     total_page INT,
@@ -14,7 +15,7 @@ CREATE TABLE books (
 );
 
 CREATE TABLE categories (
-    id BIGINT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

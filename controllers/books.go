@@ -45,9 +45,16 @@ func InsertBook(c *gin.Context) {
 		return
 	}
 
+	// Validate image using regex
+	if !utils.ValidateImageURL(input.ImageURL) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid image URL"})
+		return
+	}
+
 	book := structs.Book{
 		Title:       input.Title,
 		Description: input.Description,
+		ImageURL:    input.ImageURL,
 		ReleaseYear: input.ReleaseYear,
 		Price:       input.Price,
 		TotalPage:   input.TotalPage,
@@ -79,9 +86,15 @@ func UpdateBook(c *gin.Context) {
 		return
 	}
 
+	if !utils.ValidateImageURL(input.ImageURL) {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid image URL"})
+		return
+	}
+
 	book := structs.Book{
 		Title:       input.Title,
 		Description: input.Description,
+		ImageURL:    input.ImageURL,
 		ReleaseYear: input.ReleaseYear,
 		Price:       input.Price,
 		TotalPage:   input.TotalPage,
