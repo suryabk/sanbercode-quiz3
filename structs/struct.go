@@ -22,3 +22,12 @@ type Book struct {
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }
+
+type InputBook struct {
+	Title       string `json:"title" binding:"required"`
+	Description string `json:"description" binding:"required"`
+	ReleaseYear int    `json:"release_year" binding:"required"`
+	Price       string `json:"price" binding:"required"`
+	TotalPage   int    `json:"total_page" binding:"required"`
+	CategoryID  int    `json:"category_id" binding:"required"`
+}
