@@ -45,7 +45,7 @@ func UpdateBook(db *sql.DB, book structs.Book) (err error) {
 }
 
 func DeleteBook(db *sql.DB, book structs.Book) (err error) {
-	sql := "DELETE FROM person WHERE id = $1"
+	sql := "DELETE FROM books WHERE id = $1"
 	errs := db.QueryRow(sql, book.ID)
 
 	return errs.Err()

@@ -102,9 +102,14 @@ func UpdateBook(c *gin.Context) {
 
 func DeleteBook(c *gin.Context) {
 	var book structs.Book
-	id, err := strconv.Atoi(c.Param("id"))
+	idStr := c.Param("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid book ID"})
+		return
+	}
 
-	book.ID = int(id)
+	book.ID = id
 
 	err = repository.DeleteBook(database.DbConnection, book)
 	if err != nil {
