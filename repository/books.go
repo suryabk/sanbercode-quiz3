@@ -37,16 +37,16 @@ func InsertBook(db *sql.DB, book structs.Book) (err error) {
 	return errs.Err()
 }
 
-// func UpdateBook(db *sql.DB, person structs.Book) (err error) {
-// 	sql := "UPDATE person SET first_name = $1, last_name = $2 WHERE id = $3"
-// 	errs := db.QueryRow(sql, person.FirstName, person.LastName, person.ID)
+func UpdateBook(db *sql.DB, book structs.Book) (err error) {
+	sql := "UPDATE books SET title = $1, description = $2, release_year = $3, price = $4, total_page = $5, thickness = $6, category_id = $7, updated_at = $8 WHERE id = $9"
+	errs := db.QueryRow(sql, book.Title, book.Description, book.ReleaseYear, book.Price, book.TotalPage, book.Thickness, book.CategoryID, time.Now(), book.ID)
 
-// 	return errs.Err()
-// }
+	return errs.Err()
+}
 
-// func DeletePerson(db *sql.DB, person structs.Person) (err error) {
-// 	sql := "DELETE FROM person WHERE id = $1"
-// 	errs := db.QueryRow(sql, person.ID)
+func DeleteBook(db *sql.DB, book structs.Book) (err error) {
+	sql := "DELETE FROM person WHERE id = $1"
+	errs := db.QueryRow(sql, book.ID)
 
-// 	return errs.Err()
-// }
+	return errs.Err()
+}

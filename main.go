@@ -83,6 +83,8 @@ func main() {
 
 	router.GET("/books", controllers.GetAllBook)
 	router.POST("/books", Auth, controllers.InsertBook)
+	router.PUT("/persons/:id", controllers.UpdateBook)
+	router.DELETE("/persons/:id", controllers.DeleteBook)
 
 	router.Run("localhost:8080")
 }
